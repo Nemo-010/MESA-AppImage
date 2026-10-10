@@ -27,3 +27,6 @@ rm -f \
 
 # Turn AppDir into AppImage
 quick-sharun --make-appimage
+
+# Test the app with glxgears, which uses the bundled mesa
+quick-sharun --test ./dist/*.AppImage /usr/bin/glxgears
