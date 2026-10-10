@@ -7,6 +7,7 @@ VERSION=$(pacman -Q mesa | awk '{print $2; exit}') # example command to get vers
 VERSION=${VERSION#*:}
 export ARCH VERSION
 export OUTPATH=./dist
+export ADD_HOOKS="self-updater.hook"
 export UPINFO="gh-releases-zsync|${GITHUB_REPOSITORY%/*}|${GITHUB_REPOSITORY#*/}|latest|*$ARCH.AppImage.zsync"
 export ICON="https://gitlab.freedesktop.org/mesa/mesa/-/raw/main/docs/favicon.svg"
 export DESKTOP=DUMMY
@@ -27,3 +28,7 @@ rm -f \
 
 # Turn AppDir into AppImage
 quick-sharun --make-appimage
+
+# The AppImage prints its usage and exits when launched with no arguments,
+# so use the simple test which only checks for loading errors
+quick-sharun --simple-test ./dist/*.AppImage
